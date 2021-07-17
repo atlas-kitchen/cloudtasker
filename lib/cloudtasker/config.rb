@@ -7,7 +7,7 @@ module Cloudtasker
   class Config
     attr_accessor :redis, :store_payloads_in_redis
     attr_writer :secret, :gcp_location_id, :gcp_project_id,
-                :gcp_queue_prefix, :processor_path, :logger, :mode, :max_retries,
+                :gcp_queue_prefix, :processor_path, :processor_headers, :logger, :mode, :max_retries,
                 :dispatch_deadline, :on_error, :on_dead
 
     # Max Cloud Task size in bytes
@@ -166,6 +166,17 @@ module Cloudtasker
 
       # Add processor host to the list of authorized hosts
       Rails.application.config.hosts << val.gsub(%r{https?://}, '')
+    end
+
+    #
+    # Set the processor headers. The headers will be merged with default
+    # headers of the http task
+    #
+    #
+    # @return [Object] The processor headers object
+    #
+    def processor_headers
+      @processor_headers || {}
     end
 
     #
