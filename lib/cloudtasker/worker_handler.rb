@@ -155,7 +155,7 @@ module Cloudtasker
           headers: {
             Cloudtasker::Config::CONTENT_TYPE_HEADER => 'application/json',
             Cloudtasker::Config::CT_AUTHORIZATION_HEADER => Authenticator.bearer_token
-          }.compact,
+          }.merge(Cloudtasker.config.processor_headers).compact,
           oidc_token: Cloudtasker.config.oidc,
           body: worker_payload.to_json
         }.compact,
