@@ -155,7 +155,7 @@ module Cloudtasker
           headers: {
             Cloudtasker::Config::CONTENT_TYPE_HEADER => 'application/json',
             Cloudtasker::Config::AUTHORIZATION_HEADER => "Bearer #{Authenticator.verification_token}"
-          },
+          }.merge(Cloudtasker.config.processor_headers),
           body: worker_payload.to_json
         },
         dispatch_deadline: worker.dispatch_deadline.to_i,
